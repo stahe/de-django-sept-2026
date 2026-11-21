@@ -1,0 +1,1355 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Schritt-für-Schritt-Einführung in das Web-Framework [Django]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/de-django-sept-2026/gultigkeitsbereiche-von-daten.html">
+      
+      
+        <link rel="prev" href="internationalisierung.html">
+      
+      
+        <link rel="next" href="der-lebenszyklus-einer-anfrage.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>6. Gültigkeitsbereiche von Daten - Schritt-für-Schritt-Einführung in das Web-Framework [Django]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Schritt-für-Schritt-Einführung in das Web-Framework [Django]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-gultigkeitsbereiche-von-daten" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Schritt-für-Schritt-Einführung in das Web-Framework [Django]" class="md-header__button md-logo" aria-label="Schritt-für-Schritt-Einführung in das Web-Framework [Django]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Schritt-für-Schritt-Einführung in das Web-Framework [Django]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Gültigkeitsbereiche von Daten
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Zum dunklen Modus wechseln"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Zum dunklen Modus wechseln" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Zum hellen Modus wechseln"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Zum hellen Modus wechseln" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/de-django-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Schritt-für-Schritt-Einführung in das Web-Framework [Django]" class="md-nav__button md-logo" aria-label="Schritt-für-Schritt-Einführung in das Web-Framework [Django]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Schritt-für-Schritt-Einführung in das Web-Framework [Django]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/de-django-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Willkommen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="einfuhrung.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Einführung
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="views-routing-antworten.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Views, Routing, Antworten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="das-modell-einer-view.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Das Modell einer View
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="templates-und-formulare.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Templates und Formulare
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internationalisierung.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Internationalisierung
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gültigkeitsbereiche von Daten
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="gultigkeitsbereiche-von-daten.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Gültigkeitsbereiche von Daten
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-beispiel-23-gultigkeitsbereiche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Beispiel 23: Gültigkeitsbereiche
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1. Beispiel 23: Gültigkeitsbereiche">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-die-konfiguration-configsettingspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.1. Die Konfiguration: config/settings.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-die-objekte-scopescounterspy-und-scopesmiddlewarepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.2. Die Objekte: scopes/counters.py und scopes/middleware.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-signierte-cookies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.3. Signierte Cookies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-die-view-scopesviewspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.4. Die View: scopes/views.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#615-das-template-templatesscopesscopeshtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.5. Das Template: templates/scopes/scopes.html
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-ausfuhrung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.6. Ausführung
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="der-lebenszyklus-einer-anfrage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Der Lebenszyklus einer Anfrage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="authentifizierung-und-autorisierung.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Authentifizierung und Autorisierung
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schichtenarchitektur-und-datenzugriff.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Schichtenarchitektur und Datenzugriff
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="zwischenfazit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Zwischenfazit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fallstudie-die-anwendung-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Fallstudie: Die Anwendung RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fazit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Fazit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="anhange.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Anhänge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="6-gultigkeitsbereiche-von-daten">6. <span style="color: #2e74b5">Gültigkeitsbereiche von Daten</span></h1>
+<p>Eine Webanwendung bedient viele Benutzer gleichzeitig, und jeder Benutzer sendet zahlreiche Anfragen. Daten können daher auf mehreren Ebenen gemeinsam genutzt werden, den sogenannten Gültigkeitsbereichen (Scopes):</p>
+<ul>
+<li>Anwendungsbereich: Die Daten werden von allen Benutzern während der gesamten Lebensdauer der Anwendung gemeinsam genutzt (zum Beispiel die Liste der Ärzte);</li>
+<li>Anfragebereich: Die Daten existieren nur für die Dauer einer Anfrage (das Modell eines Templates, der angemeldete Benutzer, wie er für diese Anfrage identifiziert wurde);</li>
+<li>Sitzungsbereich: Die Daten gehören einem einzelnen Benutzer und müssen von einer Anfrage zur nächsten erhalten bleiben (die gewählte Sprache, ein Warenkorb);</li>
+<li>Clientbereich: Daten, die im Browser selbst gespeichert werden, in einem Cookie.</li>
+</ul>
+<p>In <em>[Python]</em> haben diese Gültigkeitsbereiche eine andere Natur als die, die Leser des Kurses zu <em>[Symfony]</em> kennen, weil die Anwendung von einer Anfrage zur nächsten im Speicher bleibt (Beispiel 01). In einer Modulvariablen gespeicherte Daten (Beispiele 06, 20 und 21) haben von Natur aus Anwendungsbereich: Das ist bequem und sehr schnell. Dieser Bereich hat jedoch zwei Einschränkungen. Erstens gilt er nur für die Dauer des Prozesses: Ein Neustart des Servers löscht ihn. Zweitens ist er prozessspezifisch: In der Produktion werden üblicherweise mehrere Anwendungsprozesse gestartet (zum Beispiel mehrere „Worker“ von <em>[gunicorn]</em>) oder sogar mehrere Server hinter einem Load Balancer, und jeder hätte seine eigene Kopie der Daten. Daten, die wirklich gemeinsam genutzt werden und dauerhaft erhalten bleiben müssen, werden daher in einer Datenbank oder in einem gemeinsamen Cache gespeichert (<em>[Redis]</em>, <em>[Memcached]</em>, die <em>[Django]</em> über seine Einstellung <strong><em>[CACHES]</em></strong> nutzen kann). Als Gegenleistung für Geschwindigkeit erfordert das Teilen strenge Disziplin: Ein Prozess bearbeitet mehrere Anfragen gleichzeitig in mehreren Threads, und gemeinsam genutzte Daten, die von einem Prozess verändert werden, sind für alle sichtbar; sie müssen durch eine Sperre geschützt werden (Beispiel 20), und Daten, die einem bestimmten Benutzer gehören, dürfen dort niemals abgelegt werden.</p>
+<p>In <em>[Django]</em> hat jeder Gültigkeitsbereich seinen eigenen Container:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Bereich</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Container</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Lebensdauer</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Anwendung</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">eine Modulvariable (ein einzelner Prozess), der <i>[Django]</i>-Cache (Einstellung <i><b>[CACHES]</b></i>) oder die Datenbank</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">die des Prozesses; die für den Cache gewählte Dauer; unbegrenzt bei der Datenbank</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Anfrage</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">das Objekt <i><b>[HttpRequest]</b></i>, dem eine Middleware Attribute hinzufügen kann (Beispiel 12); die lokalen Variablen der View</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">die Bearbeitung einer Anfrage</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Sitzung</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">die Session (<i><b>[request.session]</b></i>, Anwendung <i><b>[django.contrib.sessions]</b></i>), vom Server verwaltet und über ein Cookie wiedergefunden</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">standardmäßig zwei Wochen (Einstellung <i><b>[SESSION_COOKIE_AGE]</b></i>)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Client</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">ein Cookie (<i><b>[set_cookie]</b></i>, Beispiel 22), entweder im Klartext oder signiert (<i><b>[set_signed_cookie]</b></i>)</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">die im Cookie angegebene Dauer</div></td></tr></table>
+
+<p>Die Session von <em>[Django]</em> ist standardmäßig eine serverseitige Session, wie die von <em>[Java]</em> (<strong><em>[JSESSIONID]</em></strong>) oder <em>[PHP]</em> (<strong><em>[PHPSESSID]</em></strong>): Ihre Daten liegen auf dem Server, und der Browser besitzt nur den Bezeichner – eine zufällige, nicht erratbare Zahl – im Cookie <strong><em>[sessionid]</em></strong>. Die Einstellung <strong><em>[SESSION_ENGINE]</em></strong> bestimmt, wo die Daten gespeichert werden: in der Datenbank (die Standardoption, in einer Tabelle namens <strong><em>[django_session]</em></strong>), im Cache, in Dateien (die in unserem Beispiel verwendete Option) oder, wie bei <em>[Flask]</em>, vollständig in einem signierten Cookie auf dem Gerät des Clients.</p>
+<h2 id="61-beispiel-23-gultigkeitsbereiche">6.1. <span style="color: #2e74b5">Beispiel 23: Gültigkeitsbereiche</span></h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>23-scopes/
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── config/
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>│   ├── settings.py
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>│   └── ...
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>├── scopes/
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>│   ├── __init__.py
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>│   ├── counters.py
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>│   ├── middleware.py
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>│   └── views.py
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>├── templates/
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>│   └── scopes/
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>│       └── scopes.html
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>├── var/
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>│   └── sessions/
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>└── manage.py
+</code></pre></div></td></tr></table></div>
+<h3 id="611-die-konfiguration-configsettingspy">6.1.1. <span style="color: #1f4d78">Die Konfiguration: config/settings.py</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span>
+<span class="normal"><a href="#__codelineno-1-40">40</a></span>
+<span class="normal"><a href="#__codelineno-1-41">41</a></span>
+<span class="normal"><a href="#__codelineno-1-42">42</a></span>
+<span class="normal"><a href="#__codelineno-1-43">43</a></span>
+<span class="normal"><a href="#__codelineno-1-44">44</a></span>
+<span class="normal"><a href="#__codelineno-1-45">45</a></span>
+<span class="normal"><a href="#__codelineno-1-46">46</a></span>
+<span class="normal"><a href="#__codelineno-1-47">47</a></span>
+<span class="normal"><a href="#__codelineno-1-48">48</a></span>
+<span class="normal"><a href="#__codelineno-1-49">49</a></span>
+<span class="normal"><a href="#__codelineno-1-50">50</a></span>
+<span class="normal"><a href="#__codelineno-1-51">51</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># config/settings.py: die Konfiguration von Beispiel 23</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s2">"django-insecure-1zxb1%#mksmtg+m&amp;rsp_e6&amp;i7@6sbtm_i=lqjq_+rg#-=i5r-p"</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s2">"en"</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">TIME_ZONE</span> <span class="o">=</span> <span class="s2">"Europe/Paris"</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="s2">"config.urls"</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="n">WSGI_APPLICATION</span> <span class="o">=</span> <span class="s2">"config.wsgi.application"</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>    <span class="s2">"django.contrib.staticfiles"</span><span class="p">,</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>    <span class="c1"># die SESSIONS</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>    <span class="s2">"django.contrib.sessions"</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>    <span class="s2">"scopes"</span><span class="p">,</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="p">]</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="n">MIDDLEWARE</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>    <span class="c1"># die Sessions-Middleware: Sie findet zu Beginn der Anfrage die Session des Browsers (dank des</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>    <span class="c1"># Cookies sessionid) und speichert sie am Ende der Anfrage</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>    <span class="s2">"django.contrib.sessions.middleware.SessionMiddleware"</span><span class="p">,</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>    <span class="c1"># der Gültigkeitsbereich ANFRAGE: ein Objekt pro Anfrage (siehe scopes/middleware.py)</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>    <span class="s2">"scopes.middleware.RequestInfoMiddleware"</span><span class="p">,</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="p">]</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="c1"># die Session-Daten werden auf dem Server in DATEIEN gespeichert (eine pro</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="c1"># Session), im Ordner var/sessions des Beispiels, der bei Bedarf angelegt wird</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="n">SESSION_ENGINE</span> <span class="o">=</span> <span class="s2">"django.contrib.sessions.backends.file"</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="n">SESSION_FILE_PATH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">"var"</span> <span class="o">/</span> <span class="s2">"sessions"</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="n">SESSION_FILE_PATH</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a>    <span class="p">{</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a>        <span class="s2">"BACKEND"</span><span class="p">:</span> <span class="s2">"django.template.backends.django.DjangoTemplates"</span><span class="p">,</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a>        <span class="s2">"DIRS"</span><span class="p">:</span> <span class="p">[</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">"templates"</span><span class="p">],</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a>        <span class="s2">"OPTIONS"</span><span class="p">:</span> <span class="p">{</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a>            <span class="s2">"context_processors"</span><span class="p">:</span> <span class="p">[</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a>                <span class="c1"># die Variable der Anfrage und damit request.session und request.info</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a>                <span class="s2">"django.template.context_processors.request"</span><span class="p">,</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>            <span class="p">],</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a>        <span class="p">},</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a>    <span class="p">},</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="p">]</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="n">STATIC_URL</span> <span class="o">=</span> <span class="s2">"static/"</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="n">STATICFILES_DIRS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a>    <span class="n">BASE_DIR</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"common"</span> <span class="o">/</span> <span class="s2">"static"</span><span class="p">,</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 17: die Sitzungsverwaltung;</li>
+<li>Zeilen 21–27: zwei Middleware-Komponenten. <strong><em>[SessionMiddleware]</em></strong> ruft zu Beginn der Anfrage anhand des Cookies <strong><em>[sessionid]</em></strong> die Session des Browsers ab und legt sie in <strong><em>[request.session]</em></strong> ab; am Ende der Anfrage speichert sie die Session, falls sie verändert wurde, und sendet das Cookie. Die Daten werden erst beim ersten Zugriff auf <strong><em>[request.session]</em></strong> tatsächlich gelesen: Eine View, die sie nicht verwendet, verursacht keine Kosten. Die zweite Middleware ist unsere eigene (siehe unten);</li>
+<li>Zeilen 31–33: Die Sitzungsdaten werden in Dateien gespeichert – eine pro Session – und zwar im Beispiel im Ordner <strong><em>[var/sessions]</em></strong>, den wir untersuchen können. Zeile 33 legt diesen Ordner an, falls er nicht existiert (<strong><em>[parents=True]</em></strong>: einschließlich der übergeordneten Ordner; <strong><em>[exist_ok=True]</em></strong>: kein Fehler, wenn er bereits existiert): Die Einstellungsdatei ist <em>[Python]</em> und kann daher Code ausführen. Die Standardoption, die Datenbank, würde eine Datenbank erfordern (nächstes Kapitel);</li>
+<li>Zeile 42: der Kontextprozessor <strong><em>[request]</em></strong>: Die Templates verwenden <strong><em>[request.session]</em></strong> und <strong><em>[request.info]</em></strong>.</li>
+</ul>
+<h3 id="612-die-objekte-scopescounterspy-und-scopesmiddlewarepy">6.1.2. <span style="color: #1f4d78">Die Objekte: scopes/counters.py und scopes/middleware.py</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># scopes/counters.py: Gültigkeitsbereich ANWENDUNG, Zähler, die von allen</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1"># Anfragen aller Benutzer gemeinsam genutzt werden</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1"># ein Counter: ein Dictionary {Schlüssel: Zahl}, dessen fehlende Schlüssel den Wert 0 haben. Er wird</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1"># beim Laden des Moduls erzeugt und lebt so lange wie der Serverprozess</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="n">_counters</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="c1"># eins mehr unter dem Schlüssel [key]; += ist keine atomare Operation: Zwei</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="c1"># gleichzeitige Anfragen könnten denselben Wert lesen. Der Lock verhindert das</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">next_value</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>    <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>        <span class="n">_counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>        <span class="k">return</span> <span class="n">_counters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 5: die Klasse <strong><em>[Counter]</em></strong> aus dem Modul <strong><em>[collections]</em></strong>: ein Dictionary, dessen Werte Zahlen sind und dessen fehlende Schlüssel auf 0 gesetzt werden;</li>
+<li>Zeilen 9–10: die Zähler und ihre Sperre, erstellt beim Laden des Moduls; sie existieren, solange der Serverprozess läuft. Das ist der Anwendungsbereich;</li>
+<li>Zeilen 15–18: eins mehr unter einem Schlüssel. Die Operation <strong><em>[+=]</em></strong> ist nicht atomar: Sie liest den Wert, erhöht ihn und schreibt ihn dann, und zwei gleichzeitige Anfragen könnten denselben Wert lesen – ein Besuch ginge verloren. Die Sperre (Beispiel 20) verhindert dies.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># scopes/middleware.py: Gültigkeitsbereich ANFRAGE, die Informationen einer Anfrage</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">timezone</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">counters</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">RequestInfo</span><span class="p">:</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>    <span class="n">number</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>    <span class="n">start</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="c1"># die Middleware erzeugt pro Anfrage EIN Objekt RequestInfo und speichert es in der Anfrage:</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="c1"># die View und das Template finden es über request.info. Es verschwindet mit ihr</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="k">class</span><span class="w"> </span><span class="nc">RequestInfoMiddleware</span><span class="p">:</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_response</span><span class="p">):</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span> <span class="o">=</span> <span class="n">get_response</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a>        <span class="n">request</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">RequestInfo</span><span class="p">(</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a>            <span class="c1"># eine Nummer pro erzeugtem OBJEKT, entnommen einem allen Anfragen gemeinsamen Zähler</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a>            <span class="n">number</span><span class="o">=</span><span class="n">counters</span><span class="o">.</span><span class="n">next_value</span><span class="p">(</span><span class="s2">"instances"</span><span class="p">),</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a>            <span class="c1"># die Uhrzeit mit ihren Millisekunden</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a>            <span class="n">start</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%H:%M:%S.</span><span class="si">%f</span><span class="s2">"</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeilen 10–13: Informationen im Anfragebereich: eine Nummer und die Uhrzeit der Anfrage;</li>
+<li>Zeilen 18–28: Die Middleware erstellt für jede Anfrage ein Objekt <strong><em>[RequestInfo]</em></strong> und legt es in der Anfrage ab (Beispiel 12). Die Nummer stammt aus einem Zähler, der von allen Anfragen gemeinsam genutzt wird (das vorherige Modul, unter einem anderen Schlüssel); jedes Objekt hat daher eine andere Nummer. Die Uhrzeit wird einschließlich Millisekunden geschrieben: <strong><em>[%f]</em></strong> steht für die Mikrosekunden (sechs Ziffern), von denen <strong><em>[[:-3]]</em></strong> die letzten drei entfernt (ein String-Slice: alle Zeichen außer den letzten drei). Das Objekt wird zusammen mit der Anfrage gelöscht.</li>
+</ul>
+<p><em>[Django]</em> hat keinen Service-Container und damit auch keinen „Service im Anfragebereich“: Die Anfrage selbst trägt die Objekte dieses Bereichs. Leser des Kurses zu <em>[Symfony]</em> werden sich erinnern, dass es genau umgekehrt war: In <em>[PHP]</em> hatte jeder Service den Anfragebereich, und für den Anwendungsbereich war ein Cache erforderlich.</p>
+<h3 id="613-signierte-cookies">6.1.3. <span style="color: #1f4d78">Signierte Cookies</span></h3>
+<p>Ein Cookie ist ein Datum, das dem Client anvertraut wird, der es lesen und ändern kann. Damit ein Cookie vertrauenswürdig ist, muss es lediglich signiert sein: Sein Wert wird im Klartext übertragen, aber es folgt eine Signatur, die nur der Server berechnen kann, weil sie von einem geheimen Schlüssel abhängt. Ein vom Client geänderter Wert hat nicht mehr die richtige Signatur, und der Server weist ihn zurück. <em>[Django]</em> übernimmt das für uns: <strong><em>[response.set_signed_cookie(name, value)]</em></strong> setzt ein signiertes Cookie, und <strong><em>[request.get_signed_cookie(name, default=...)]</em></strong> liefert seinen Wert, wenn die Signatur korrekt ist; andernfalls liefert es den Standardwert. Die Signatur ist ein HMAC (Hash-based Message Authentication Code): ein Hash des Wertes (SHA-256), berechnet mit dem geheimen Schlüssel der Anwendung (<strong><em>[SECRET_KEY]</em></strong>, Beispiel 01), und einem „Salt“, der für den Namen des Cookies spezifisch ist. <em>[Django]</em> fügt das Datum der Signatur hinzu, wodurch ein veraltetes Cookie abgelehnt werden kann (<strong><em>[get_signed_cookie(..., max_age=3600)]</em></strong>). Die Überprüfung vergleicht die Signaturen in einer Zeit, die nicht von der Anzahl übereinstimmender Zeichen abhängt: Ein gewöhnlicher Vergleich würde beim ersten abweichenden Zeichen abbrechen, und ein Angreifer könnte durch Messen der Antwortzeit die Signatur Zeichen für Zeichen erraten. Das Modul <strong><em>[django.core.signing]</em></strong> bietet dieselben Funktionen zum Signieren beliebiger Daten (<strong><em>[signing.dumps]</em></strong>, <strong><em>[signing.loads]</em></strong>): Dieses Modul signiert die Flash-Meldungen in Beispiel 20.</p>
+<p>Dies ist das Prinzip des JWT-Tokens, das das nächste Kapitel für die Authentifizierung verwenden wird.</p>
+<h3 id="614-die-view-scopesviewspy">6.1.4. <span style="color: #1f4d78">Die View: scopes/views.py</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># scopes/views.py: die vier Gültigkeitsbereiche der Daten</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.shortcuts</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.views.decorators.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">require_GET</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">counters</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="nd">@require_GET</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">scopes</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>    <span class="c1"># ANWENDUNG: der gemeinsame Zähler</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>    <span class="n">total</span> <span class="o">=</span> <span class="n">counters</span><span class="o">.</span><span class="n">next_value</span><span class="p">(</span><span class="s2">"visits"</span><span class="p">)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>    <span class="c1"># SESSION: Daten, die für DIESEN Browser spezifisch sind, vom SERVER gehalten (eine</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>    <span class="c1"># Datei in var/sessions), gefunden dank des Session-Cookies; die Session</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>    <span class="c1"># wird wie ein Dictionary verwendet</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">"visits"</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"visits"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>    <span class="c1"># CLIENT: Daten, die der BROWSER in Cookies hält und mit jeder Anfrage an den</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a>    <span class="c1"># Server zurücksendet; eines im Klartext, das andere signiert</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a>    <span class="n">my_visits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">COOKIES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"myVisits"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>    <span class="c1"># get_signed_cookie: der Wert, wenn die Signatur stimmt; sonst default</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a>    <span class="n">my_visits_signed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">get_signed_cookie</span><span class="p">(</span><span class="s2">"myVisitsSigned"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">"scopes/scopes.html"</span><span class="p">,</span> <span class="p">{</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>        <span class="s2">"total"</span><span class="p">:</span> <span class="n">total</span><span class="p">,</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a>        <span class="s2">"instance"</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a>        <span class="s2">"session_visits"</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">"visits"</span><span class="p">],</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a>        <span class="s2">"my_visits"</span><span class="p">:</span> <span class="n">my_visits</span><span class="p">,</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a>        <span class="s2">"my_visits_signed"</span><span class="p">:</span> <span class="n">my_visits_signed</span><span class="p">,</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a>    <span class="p">})</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a>    <span class="n">response</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="s2">"myVisits"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">my_visits</span><span class="p">))</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a>    <span class="c1"># set_signed_cookie: der Wert, gefolgt von einer mit SECRET_KEY berechneten Signatur</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a>    <span class="n">response</span><span class="o">.</span><span class="n">set_signed_cookie</span><span class="p">(</span><span class="s2">"myVisitsSigned"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">my_visits_signed</span><span class="p">))</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a>    <span class="k">return</span> <span class="n">response</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 12: der Anwendungsbereich;</li>
+<li>Zeile 16: der Sitzungsbereich. <strong><em>[request.session]</em></strong> wird wie ein Dictionary verwendet: <strong><em>[get(key, default)]</em></strong> liest einen Wert, und die Zuweisung schreibt ihn. <em>[Django]</em> speichert die Session am Ende der Anfrage. Die Werte müssen in JSON umwandelbar sein (Strings, Zahlen, Listen, Dictionaries): So werden sie gespeichert;</li>
+<li>Zeilen 19–21: der Clientbereich mit zwei Cookies. <strong><em>[request.COOKIES]</em></strong> ist das Dictionary der vom Browser gesendeten Cookies. Ihre Werte sind vom Browser gelieferte Strings und können daher fehlen oder ungültig sein: <strong><em>[int]</em></strong> wandelt sie um (ein Cookie <strong><em>[myVisits=abc]</em></strong> würde hier eine Ausnahme <strong><em>[ValueError]</em></strong> auslösen und zu einem 500-Fehler führen; eine reale Anwendung würde den Wert prüfen; siehe Beispiel 07). Der Wert des signierten Cookies wird nur akzeptiert, wenn seine Signatur korrekt ist;</li>
+<li>Zeilen 22–28: der Kontext des Templates;</li>
+<li>Zeilen 29–31: Um ein Cookie zu setzen, benötigt man das Antwortobjekt: <strong><em>[render]</em></strong> erstellt es (Beispiel 13), dann fügen <strong><em>[set_cookie]</em></strong> und <strong><em>[set_signed_cookie]</em></strong> die Cookies hinzu. Ohne Ablaufzeit (<strong><em>[max_age]</em></strong>) bleibt ein Cookie bis zum Schließen des Browsers bestehen (das ist ein „Sitzungs“-Cookie im Sinne der Browser).</li>
+</ul>
+<h3 id="615-das-template-templatesscopesscopeshtml">6.1.5. <span style="color: #1f4d78">Das Template: templates/scopes/scopes.html</span></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">&lt;!doctype html&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>{% load static %}
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="p">&gt;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Scopes<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"{% static 'bootstrap/css/bootstrap.min.css' %}"</span><span class="p">&gt;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"container py-3"</span><span class="p">&gt;</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>    <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">"h3"</span><span class="p">&gt;</span>The scopes of data<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>    {# request.info: das von der Middleware in der Anfrage gespeicherte Objekt; es ist dasselbe wie das der View #}
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>application: {{ total }} visit(s) to the site, all browsers combined<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a>      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>request: object no. {{ instance }} (no. {{ request.info.number }} in the template),
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a>        request received at {{ request.info.start }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a>      {# request.session: die Session, auch in den Templates zugänglich #}
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a>      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>session: {{ session_visits }} visit(s) from this browser ({{ request.session.visits }} in the template)<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a>      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>client: {{ my_visits }} visit(s) from this browser (plain cookie),
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a>        {{ my_visits_signed }} (signed cookie)<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a>    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23"></a>  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Zeile 16: <strong><em>[request.info]</em></strong>, das Objekt, das die Middleware in der Anfrage abgelegt hat: Es ist dasselbe <strong><em>[RequestInfo]</em></strong>-Objekt wie in der View; das Template zeigt seine Nummer an, die mit der von der View erhaltenen übereinstimmen muss;</li>
+<li>Zeile 19: Die Session ist auch in den Templates über <strong><em>[request.session]</em></strong> zugänglich.</li>
+</ul>
+<h3 id="616-ausfuhrung">6.1.6. <span style="color: #1f4d78">Ausführung</span></h3>
+<p>Nach drei Besuchen in einem Browser:</p>
+<p><img src="images/10000000000002BE0000010FABF3BA8F.png" width="428" height="165" style="width:11.322cm;height:4.371cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/10000000000002BE0000010FABF3BA8F.png" /></p>
+<p>Die Nummer des Anfrageobjekts ist größer als die Anzahl der Besuche: Beim ersten Besuch hat der Browser auch das Symbol der Website angefordert (<strong><em>[/favicon.ico]</em></strong>), das nicht existiert. Diese Anfrage, die einen 404-Fehler ergab, durchlief die Middleware und hatte daher ihr eigenes Objekt <strong><em>[RequestInfo]</em></strong>.</p>
+<p>Verfolgen wir die Anfragen mit <em>[curl]</em>, das als erster Browser fungiert und seine Cookies in der Datei <strong><em>[a.txt]</em></strong> speichert (der Server wurde gerade gestartet):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>curl -i -c a.txt -b a.txt http://localhost:8000/
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>HTTP/1.1 200 OK
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>Content-Type: text/html; charset=utf-8
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>Vary: Cookie
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>Set-Cookie: myVisits=1; Path=/
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>Set-Cookie: myVisitsSigned=1:1xAspT:iu2OlkhoUcBt0QBGkt_Gkjm2PoYfUeS6WSsO5KEHt0k; Path=/
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>Set-Cookie: sessionid=ij72qd9hyuhwoqlplawuxycwg6ggccsq; expires=Sun, 11 Oct 2026 17:38:23 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>...
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>      &lt;li&gt;application: 1 visit(s) to the site, all browsers combined&lt;/li&gt;
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a>      &lt;li&gt;request: object no. 1 (no. 1 in the template),
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a>        request received at 19:38:23.123&lt;/li&gt;
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>      &lt;li&gt;session: 1 visit(s) from this browser (1 in the template)&lt;/li&gt;
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>      &lt;li&gt;client: 1 visit(s) from this browser (plain cookie),
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a>        1 (signed cookie)&lt;/li&gt;
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a>...
+</code></pre></div></td></tr></table></div>
+<p>Die Antwort setzt drei Cookies. Das erste, <strong><em>[myVisits]</em></strong>, enthält den Wert im Klartext. Das zweite, <strong><em>[myVisitsSigned]</em></strong>, enthält denselben Wert, gefolgt von einem Doppelpunkt, dem Datum der Signatur (in Basis 62) und der Signatur selbst. Das dritte, <strong><em>[sessionid]</em></strong>, ist die Session-ID, zwei Wochen gültig (<strong><em>[Max-Age=1209600]</em></strong> Sekunden), <strong><em>[HttpOnly],</em></strong> und <strong><em>[SameSite=Lax]</em></strong> (Beispiel 20). Die Sitzungsdaten werden in einer Datei auf dem Server gespeichert, <strong><em>[var/sessions/sessionidij72qd9hyuhwoqlplawuxycwg6ggccsq]</em></strong>, deren Name vom Bezeichner abgeleitet ist:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>eyJ2aXNpdHMiOjF9:1xAspT:mYytMt_81vJlDI_gaKudIqPgoxAvrGUZbnk578MZr3I
+</code></pre></div></td></tr></table></div>
+<p>Hier erkennen wir das Format der signierten Daten von <em>[Django]</em>: die Daten, das Datum und die Signatur. Die Daten stammen aus JSON, Base64-kodiert: <strong><em>[eyJ2aXNpdHMiOjF9] wird dekodiert zu [{&quot;visits&quot;:1}]</em></strong>. Der Server signiert sogar seine eigenen Sitzungsdateien: Eine von Dritten veränderte Datei würde abgelehnt. Ein zweiter Besuch mit denselben Cookies:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>curl -i -c a.txt -b a.txt http://localhost:8000/
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>...
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>Set-Cookie: myVisits=2; Path=/
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>Set-Cookie: myVisitsSigned=2:1xAspT:E9lE-GK-yE7WfT5Ak58h2tufzXQ5vLWcWz5UBAS-dLA; Path=/
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>Set-Cookie: sessionid=ij72qd9hyuhwoqlplawuxycwg6ggccsq; expires=Sun, 11 Oct 2026 17:38:23 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a>...
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>      &lt;li&gt;application: 2 visit(s) to the site, all browsers combined&lt;/li&gt;
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a>      &lt;li&gt;request: object no. 2 (no. 2 in the template),
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a>        request received at 19:38:23.150&lt;/li&gt;
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a>      &lt;li&gt;session: 2 visit(s) from this browser (2 in the template)&lt;/li&gt;
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a>      &lt;li&gt;client: 2 visit(s) from this browser (plain cookie),
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a>        2 (signed cookie)&lt;/li&gt;
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a>...
+</code></pre></div></td></tr></table></div>
+<p>Die Session ist dieselbe (gleiche ID); ihr Cookie wird zurückgesendet, weil die Session verändert wurde, was ihre Lebensdauer verlängert. Ein zweiter „Browser“ mit eigener, zunächst leerer Cookie-Datei:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>curl -c b.txt -b b.txt http://localhost:8000/
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>      &lt;li&gt;application: 3 visit(s) to the site, all browsers combined&lt;/li&gt;
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>      &lt;li&gt;request: object no. 3 (no. 3 in the template),
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>        request received at 19:38:23.167&lt;/li&gt;
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>      &lt;li&gt;session: 1 visit(s) from this browser (1 in the template)&lt;/li&gt;
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>      &lt;li&gt;client: 1 visit(s) from this browser (plain cookie),
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>        1 (signed cookie)&lt;/li&gt;
+</code></pre></div></td></tr></table></div>
+<p>Der Anwendungszähler läuft weiter; Session und Cookies des zweiten Browsers beginnen wieder bei 1. Jede Anfrage hatte ihr eigenes Objekt <strong><em>[RequestInfo]</em></strong>, und in jeder waren View und Template dieselben. Schließlich fälscht ein böswilliger Benutzer seine eigenen Cookies: 1.000 Besuche in <strong><em>[myVisits]</em></strong>, 999 in <strong><em>[myVisitsSigned]</em></strong> (mit einer erfundenen Signatur) und eine selbst ausgedachte Session-ID:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>curl -i -b "myVisits=1000;myVisitsSigned=999:abc;sessionid=abc" http://localhost:8000/
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span>
+<span class="normal"><a href="#__codelineno-14-6">6</a></span>
+<span class="normal"><a href="#__codelineno-14-7">7</a></span>
+<span class="normal"><a href="#__codelineno-14-8">8</a></span>
+<span class="normal"><a href="#__codelineno-14-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>...
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>Set-Cookie: myVisits=1001; Path=/
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>Set-Cookie: myVisitsSigned=1:1xAspT:iu2OlkhoUcBt0QBGkt_Gkjm2PoYfUeS6WSsO5KEHt0k; Path=/
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>Set-Cookie: sessionid=l4316xnwacgz81f7yemjar89cfe05jm3; expires=Sun, 11 Oct 2026 17:38:23 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>...
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a>      &lt;li&gt;session: 1 visit(s) from this browser (1 in the template)&lt;/li&gt;
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a>      &lt;li&gt;client: 1001 visit(s) from this browser (plain cookie),
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a>        1 (signed cookie)&lt;/li&gt;
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a>...
+</code></pre></div></td></tr></table></div>
+<p>Das Klartext-Cookie wurde unverändert akzeptiert: 1.001 Besuche. Das Cookie <strong><em>[myVisitsSigned]</em></strong> hatte dagegen nicht die richtige Signatur: Es wurde ignoriert, als würde es fehlen. Die Signatur eines anderen Wertes zu kopieren (die von <strong><em>[1]</em></strong> zum Beispiel neben den Wert <strong><em>[999]</em></strong>) funktioniert nicht besser: Die Signatur hängt vom Wert ab. Die erfundene Session-ID verweist auf keine existierende Session: <em>[Django]</em> ignoriert sie und erstellt eine neue Session mit einer neuen ID, die es selbst wählt. Der Benutzer kann daher nicht die Session eines anderen Benutzers auswählen.</p>
+<p>Merken wir uns die Regel: Vom Client stammende Daten sind nur dann vertrauenswürdig, wenn sie vom Server geschützt werden (signiert, wie hier oder wie beim Token im Kapitel über die Authentifizierung, oder verschlüsselt); Daten, die nichts zu verbergen haben und deren Wert der Server überprüft (die Sprache in Beispiel 22), können im Klartext bleiben. Eine Signatur garantiert, dass ein Wert nicht verändert wurde, verbirgt ihn aber nicht: Ein Geheimnis darf dem Client niemals anvertraut werden, auch nicht signiert.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Dieses Tutorial, geschrieben von der KI <strong>Claude</strong> von Anthropic im Auftrag von <strong>Serge Tahé</strong>, wird der Öffentlichkeit unter den Bedingungen der Lizenz
+        <em>Creative Commons Namensnennung – Nicht kommerziell –
+        Weitergabe unter gleichen Bedingungen 3.0 Unported</em> zur Verfügung gestellt.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
